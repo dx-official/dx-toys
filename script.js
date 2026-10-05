@@ -10,7 +10,7 @@ function stock(p){if(p.stock==null)return "";return p.stock<=0?`<span class="stk
 function price(p){if(!p.price)return `<div class="pr">Price on request</div>`;const d=p.originalPrice>p.price?Math.round((1-p.price/p.originalPrice)*100):0;return `<div class="pr">${rp(p.price)}${d?`<s>${rp(p.originalPrice)}</s><span class="d">-${d}%</span>`:""}</div>`}
 function img(src,fb){return `<img src="${esc(src)}" alt="" loading="lazy" onerror="this.remove()">${fb}`}
 function card(p){return `<article class="card"><a class="im" href="#/product/${p.slug}" aria-label="${esc(p.name)}"><span>${emo[p.category]||"🧸"}</span>${img(p.image,"").replace('alt=""',`alt="${esc(p.name)}"`)}<span class="bd">${badge(p)}</span></a>
-<div class="cb"><span class="meta">${esc(p.brand)} · ${esc(p.category)}</span><h3>${esc(p.name)}</h3>${price(p)}${stock(p)}
+<div class="cb"><span class="meta">${[p.brand,p.category].filter(Boolean).map(esc).join(" · ")}</span><h3>${esc(p.name)}</h3>${price(p)}${stock(p)}
 <div class="act">${!p.price&&!OUT(p)?`<a class="btn p s" target="_blank" rel="noopener" href="${ASK(p)}">Ask on WhatsApp</a>`:`<button class="btn p s" onclick="add(${p.id})" ${OUT(p)?"disabled":""}>Add to cart</button>`}<a class="btn s" href="#/product/${p.slug}">View</a></div></div></article>`}
 const byIds=ids=>ids.map(i=>P.find(p=>p.id===i)).filter(Boolean);
 const head=(t,s,l)=>`<div class="hh"><div><h2>${t}</h2><p>${s}</p></div>${l?`<a class="btn s" href="${l}">View all</a>`:""}</div>`;
