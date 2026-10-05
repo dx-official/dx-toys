@@ -29,9 +29,7 @@ function home(){return `<section class="hero"><div><span class="lbl">Toys · Die
 <div class="stage"><i style="width:60%;aspect-ratio:1;background:var(--red);top:-14%;right:-12%"></i><i style="width:34%;aspect-ratio:1;background:var(--yellow);bottom:-8%;left:-6%"></i><i style="width:16%;aspect-ratio:1;background:var(--green);top:12%;left:10%"></i>
 <div class="t"><span style="background:#fff">🏎️</span><span style="background:var(--yellow)">🃏</span><span style="background:var(--green)">🧸</span><span style="background:#fff">🛡️</span></div>${img("/assets/hero.jpg","")}</div></section>
 <section class="sec" id="collections">${head("Featured collections","Pick a shelf and start browsing.")}<div class="grid">${COLS.map(c=>`<a class="col" style="background:${c.c}" href="#/shop?k=${encodeURIComponent(c.n)}"><div style="font-size:2.4rem">${c.e}</div><div><h3>${c.n}</h3><p>${c.d}</p><p><em>Explore collection →</em></p></div></a>`).join("")}</div></section>
-<section class="sec">${head("NEW ARRIVALS","Fresh drops for your collection.","#/shop?s=new")}<div class="grid">${byIds(NEW_IDS).map(card).join("")}</div></section>
-<section class="sec">${head("BEST SELLERS","Collector favorites this week.","#/shop")}<div class="grid">${byIds(BEST_IDS).map(card).join("")}</div></section>
-<section class="sec">${head("PRE-ORDER","Secure your upcoming releases before they arrive.","#/preorder")}${pre()}</section>
+<section class="sec">${head("ON PROMOTION","Fresh drops for your collection.","#/shop?s=new")}<div class="grid">${byIds(NEW_IDS).map(card).join("")}</div></section>
 <section class="sec">${head("Promotions","Current offers.")}<div class="g2">${PROMO.map(promo).join("")}</div></section>
 <section class="sec">${why()}</section>`}
 function promo(p){return `<div class="pc"><h3>${esc(p.t)}</h3><span>${esc(p.d)}</span>${p.p?`<span class="meta">Period: ${esc(p.p)}</span>`:""}${p.c?`<span class="code">${esc(p.c)}</span>`:""}<a class="btn s" style="justify-self:start" href="#/shop">Shop now</a></div>`}
