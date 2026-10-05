@@ -22,8 +22,7 @@ $("#cl").innerHTML=CART.length?CART.map(i=>{const p=P.find(x=>x.id===i.id);retur
 const tot=CART.reduce((a,i)=>a+P.find(x=>x.id===i.id).price*i.q,0);
 const msg=encodeURIComponent("Hello DX Toys & Hobbies, I'd like to order:\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}`).join("\n")+"\nTotal: "+rp(tot));
 $("#ct").innerHTML=CART.length?`<p><b>Total: ${rp(tot)}</b></p><a class="btn p" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${msg}">Order via WhatsApp</a>`:""}
-function srch(){location.hash="#/shop";setTimeout(()=>{const s=$("#q");s&&s.focus()},50)}
-$("#sb").onclick=srch;$("#cb").onclick=()=>cart(1);
+$("#cb").onclick=()=>cart(1);
 // ---------- VIEWS ----------
 function home(){return `<section class="hero"><div><span class="lbl">Toys · Diecast · Cards</span><h1>COLLECT WHAT YOU LOVE.</h1><p>Toys, diecast, cards &amp; collectibles — curated for collectors.</p>
 <div class="bt"><a class="btn p" href="#/shop">Shop Now</a><a class="btn" href="#collections" onclick="document.getElementById('collections').scrollIntoView();return false">Explore Collections</a></div></div>
@@ -39,15 +38,14 @@ function promo(p){return `<div class="pc"><h3>${esc(p.t)}</h3><span>${esc(p.d)}<
 function pre(){return `<div class="g2">${PRE.map(r=>`<div class="card" style="flex-direction:row;flex-wrap:wrap"><div class="im" style="flex:1 1 180px;aspect-ratio:auto;min-height:200px"><span>🃏</span>${img(r.img,"")}<span class="bd"><span class="b r">PRE-ORDER</span></span></div><div class="cb" style="flex:1 1 220px"><h3>${esc(r.name)}</h3><span class="meta">Estimated release: ${esc(r.rel)}</span><div class="pr">${rp(r.price)}</div><span class="meta">Deposit: ${rp(r.dep)}</span><span class="stk ok">Status: ${esc(r.status)}</span><p class="meta">${esc(r.d)}</p><a class="btn p s" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${encodeURIComponent("Hello, I'd like to pre-order: "+r.name)}">Pre-order via WhatsApp</a></div></div>`).join("")}</div>`}
 function why(){return `${head("WHY DX TOYS & HOBBIES?","")}<div class="g4">${WHY.map(w=>`<div class="card cb"><div class="ic" style="background:${w[3]}">${w[2]}</div><h3>${w[0]}</h3><span class="meta">${w[1]}</span></div>`).join("")}</div>`}
 function shop(q){const st={q:"",c:"",b:"",a:"",s:"feat",...q};
-return `<section class="sec">${head("Shop","Search, filter and sort the catalog.")}<div class="shop"><div class="fl"><label>Search<input id="q" type="search" placeholder="Name, brand, SKU, tag" value="${esc(st.q)}"></label>
-<label>Category<select id="fc"><option value="">All</option>${COLS.map(c=>`<option ${st.c===c.n?"selected":""}>${c.n}</option>`).join("")}</select></label>
+return `<section class="sec">${head("Shop","Filter and sort the catalog.")}<div class="shop"><div class="fl"><label>Category<select id="fc"><option value="">All</option>${COLS.map(c=>`<option ${st.c===c.n?"selected":""}>${c.n}</option>`).join("")}</select></label>
 <label>Brand<select id="fb"><option value="">All</option>${[...new Set(P.map(p=>p.brand))].map(b=>`<option ${st.b===b?"selected":""}>${esc(b)}</option>`).join("")}</select></label>
 <label>Availability<select id="fa"><option value="">All</option><option value="Available" ${st.a==="Available"?"selected":""}>Available</option><option value="Limited" ${st.a==="Limited"?"selected":""}>Limited</option><option value="out" ${st.a==="out"?"selected":""}>Out of stock</option></select></label>
 <label>Max price<input id="fp" type="number" min="0" step="10000" placeholder="Rp"></label>
 <label>Sort<select id="fs"><option value="feat">Featured</option><option value="new" ${st.s==="new"?"selected":""}>Newest</option><option value="lo">Price: Low → High</option><option value="hi">Price: High → Low</option><option value="best">Best Selling</option></select></label></div>
 <div><p class="meta" id="rc"></p><div class="grid" id="pg"></div></div></div></section>`}
-function filt(){const q=$("#q").value.toLowerCase(),c=$("#fc").value,b=$("#fb").value,a=$("#fa").value,mx=+$("#fp").value||1e12,s=$("#fs").value;
-let r=P.filter(p=>(!q||[p.name,p.brand,p.category,p.sku,...p.tags].join(" ").toLowerCase().includes(q))&&(!c||p.category===c)&&(!b||p.brand===b)&&p.price<=mx&&(!a||(a==="out"?p.stock<=0:p.status===a)));
+function filt(){const c=$("#fc").value,b=$("#fb").value,a=$("#fa").value,mx=+$("#fp").value||1e12,s=$("#fs").value;
+let r=P.filter(p=>(!c||p.category===c)&&(!b||p.brand===b)&&p.price<=mx&&(!a||(a==="out"?p.stock<=0:p.status===a)));
 if(s==="lo")r.sort((x,y)=>x.price-y.price);if(s==="hi")r.sort((x,y)=>y.price-x.price);
 if(s==="new")r.sort((x,y)=>NEW_IDS.includes(y.id)-NEW_IDS.includes(x.id));if(s==="best")r.sort((x,y)=>BEST_IDS.includes(y.id)-BEST_IDS.includes(x.id));
 $("#rc").textContent=r.length+" product"+(r.length===1?"":"s");$("#pg").innerHTML=r.length?r.map(card).join(""):`<p class="empty" style="grid-column:1/-1">No products match. Clear a filter or try another keyword.</p>`}
@@ -72,5 +70,5 @@ if(m[1]==="shop"){v=shop(q);t="Shop — DX Toys & Hobbies"}else if(m[1]==="produ
 else if(m[1]==="about"){v=about();t="About — DX Toys & Hobbies"}else if(m[1]==="contact"){v=contact();t="Contact — DX Toys & Hobbies"}else v=home();
 document.title=t;$("#app").innerHTML=v;window.scrollTo(0,0);
 $("#nav").innerHTML=NAV.map(n=>`<a href="${n[1]}" class="${h===n[1]?"on":""}">${n[0]}</a>`).join("");
-if(m[1]==="shop"){["q","fc","fb","fa","fp","fs"].forEach(i=>$("#"+i).addEventListener(i==="q"||i==="fp"?"input":"change",filt));filt()}}
+if(m[1]==="shop"){["fc","fb","fa","fp","fs"].forEach(i=>$("#"+i).addEventListener(i==="fp"?"input":"change",filt));filt()}}
 addEventListener("hashchange",route);route();upd();
