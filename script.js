@@ -21,7 +21,7 @@ function cart(o){$("#cart").classList.toggle("open",!!o);upd()}
 function upd(){$("#cc").textContent=CART.reduce((a,b)=>a+b.q,0);
 $("#cl").innerHTML=CART.length?CART.map(i=>{const p=P.find(x=>x.id===i.id);return `<div class="ci"><div>${esc(p.name)}</div><div>${rp(p.price*i.q)}</div><div class="q"><button onclick="chg(${p.id},-1)" aria-label="Less">−</button><span>${i.q}</span><button onclick="chg(${p.id},1)" aria-label="More">+</button></div></div>`}).join(""):`<p class="empty">Your cart is empty. Add a product to get started.</p>`;
 const tot=CART.reduce((a,i)=>a+P.find(x=>x.id===i.id).price*i.q,0);
-const msg=encodeURIComponent("Hello DX Toys & Hobbies, I'd like to order:\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}`).join("\n")+"\nPerkiraan total harga: "+rp(tot));
+const msg=encodeURIComponent("Hello DX Toys & Hobbies\nSaya mau tanya tentang produk ini:\n\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}`).join("\n"));
 $("#ct").innerHTML=CART.length?`<p><b>Perkiraan total harga: ${rp(tot)}</b></p><a class="btn p" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${msg}">Konfirmasi via WhatsApp</a>`:""}
 $("#cb").onclick=()=>cart(1);
 // ---------- VIEWS ----------
