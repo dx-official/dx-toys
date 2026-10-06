@@ -1,6 +1,6 @@
 // ---------- HELPERS ----------
 const $=s=>document.querySelector(s),rp=n=>"Rp "+n.toLocaleString("id-ID"),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const emo={Diecast:"🏎️","Trading Cards":"🃏",Accessories:"🛡️"};
+const emo={Diecast:"🏎️","Trading Cards":"🃏",Accessories:"🛡️",Others:"🎲"};
 let CART=[];try{CART=JSON.parse(localStorage.getItem("dxcart")||"[]")}catch(e){}
 const save=()=>{try{localStorage.setItem("dxcart",JSON.stringify(CART))}catch(e){}};
 function toast(m){const t=$("#ts");t.textContent=m;t.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("on"),1600)}

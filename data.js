@@ -17,7 +17,11 @@ const P=[
 {id:10,name:"Protector Hot Wheels",category:"Accessories",brand:"",price:10000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/protector-hot-wheels.jpg",slug:"protector-hot-wheels",tags:[]},
 {id:11,name:"Sleeve Kartu TCG",category:"Accessories",brand:"",price:5000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/sleeve-kartu-tcg.jpg",slug:"sleeve-kartu-tcg",tags:[]},
 {id:12,name:"Top Loader Kartu TCG",category:"Accessories",brand:"",price:4000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/top-loader-kartu-tcg.jpg",slug:"top-loader-kartu-tcg",tags:[]},
-{id:13,name:"Stand Kartu TCG",category:"Accessories",brand:"",price:7000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/stand-kartu-tcg.jpg",slug:"stand-kartu-tcg",tags:[]}];
+{id:13,name:"Stand Kartu TCG",category:"Accessories",brand:"",price:7000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/stand-kartu-tcg.jpg",slug:"stand-kartu-tcg",tags:[]},
+{id:14,name:"Kartu Remi",category:"Others",brand:"",price:6000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/kartu-remi.jpg",slug:"kartu-remi",tags:[]},
+{id:15,name:"Kartu Domino",category:"Others",brand:"",price:5000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/kartu-domino.jpg",slug:"kartu-domino",tags:[]},
+{id:16,name:"Kartu Uno",category:"Others",brand:"",price:15000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/kartu-uno.jpg",slug:"kartu-uno",tags:[]},
+{id:17,name:"Koin Karambol",category:"Others",brand:"",price:9000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/koin-karambol.jpg",slug:"koin-karambol",tags:[]}];
 const NEW_IDS=[1,2,3,4],BEST_IDS=[];
 const PRE=[{name:"Pokémon Booster Box — Upcoming Set",rel:"December 2026",price:1199000,dep:300000,status:"Open",d:"Limited pre-order allocation. Release date may change according to official distributor schedule.",img:"/assets/preorder/pokemon-upcoming.jpg"}];
 const PROMO=[{t:"FREE SHIPPING WEEKEND",d:"Free shipping for selected orders.",p:"10–12 October 2026",c:"DXWEEKEND"},{t:"COLLECTOR DEAL",d:"Save more when purchasing selected bundles.",p:"",c:""}];
