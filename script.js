@@ -7,7 +7,7 @@ function toast(m){const t=$("#ts");t.textContent=m;t.classList.add("on");clearTi
 function badge(p){const c={"Best Seller":"y",New:"g",Limited:"r"}[p.badge]||"";return p.badge?`<span class="b ${c}">${esc(p.badge.toUpperCase())}</span>`:""}
 const OUT=p=>p.stock!=null&&p.stock<=0,MX=p=>p.stock==null?99:p.stock,ASK=p=>`https://wa.me/${BRAND.wa}?text=${encodeURIComponent("Hello, I'd like to ask about: "+p.name)}`;
 function stock(p){if(p.stock==null)return "";return p.stock<=0?`<span class="stk no">OUT OF STOCK</span>`:p.stock<=5?`<span class="stk lo">Only ${p.stock} left · ${esc(p.status)}</span>`:`<span class="stk ok">In stock (${p.stock}) · ${esc(p.status)}</span>`}
-function price(p){if(!p.price)return `<div class="pr">Price on request</div>`;const d=p.originalPrice>p.price?Math.round((1-p.price/p.originalPrice)*100):0;return `<div class="pr">${rp(p.price)}${d?`<s>${rp(p.originalPrice)}</s><span class="d">-${d}%</span>`:""}</div>`}
+function price(p){if(!p.price)return `<div class="pr">Price on request</div>`;const d=p.originalPrice>p.price?Math.round((1-p.price/p.originalPrice)*100):0;return `<div class="pr">${p.from?`<small class="from">Mulai dari</small>`:""}${rp(p.price)}${d?`<s>${rp(p.originalPrice)}</s><span class="d">-${d}%</span>`:""}</div>`}
 function img(src,fb){return `<img src="${esc(src)}" alt="" loading="lazy" onerror="this.remove()">${fb}`}
 function card(p){return `<article class="card"><a class="im" href="#/product/${p.slug}" aria-label="${esc(p.name)}"><span>${emo[p.category]||"🧸"}</span>${img(p.image,"").replace('alt=""',`alt="${esc(p.name)}"`)}<span class="bd">${badge(p)}</span></a>
 <div class="cb"><span class="meta">${[p.brand,p.category].filter(Boolean).map(esc).join(" · ")}</span><h3>${esc(p.name)}</h3>${price(p)}${stock(p)}
@@ -19,10 +19,10 @@ function add(id,q=1){const p=P.find(x=>x.id===id),i=CART.find(x=>x.id===id);if(i
 function chg(id,d){const i=CART.find(x=>x.id===id),p=P.find(x=>x.id===id);i.q=Math.max(0,Math.min(i.q+d,MX(p)));CART=CART.filter(x=>x.q>0);save();upd()}
 function cart(o){$("#cart").classList.toggle("open",!!o);upd()}
 function upd(){$("#cc").textContent=CART.reduce((a,b)=>a+b.q,0);
-$("#cl").innerHTML=CART.length?CART.map(i=>{const p=P.find(x=>x.id===i.id);return `<div class="ci"><div>${esc(p.name)}</div><div>${rp(p.price*i.q)}</div><div class="q"><button onclick="chg(${p.id},-1)" aria-label="Less">−</button><span>${i.q}</span><button onclick="chg(${p.id},1)" aria-label="More">+</button></div></div>`}).join(""):`<p class="empty">Your cart is empty. Add a product to get started.</p>`;
+$("#cl").innerHTML=CART.length?CART.map(i=>{const p=P.find(x=>x.id===i.id);return `<div class="ci"><div>${esc(p.name)}</div><div>${p.from?`<small>Mulai dari </small>`:""}${rp(p.price*i.q)}</div><div class="q"><button onclick="chg(${p.id},-1)" aria-label="Less">−</button><span>${i.q}</span><button onclick="chg(${p.id},1)" aria-label="More">+</button></div></div>`}).join(""):`<p class="empty">Your cart is empty. Add a product to get started.</p>`;
 const tot=CART.reduce((a,i)=>a+P.find(x=>x.id===i.id).price*i.q,0);
-const msg=encodeURIComponent("Hello DX Toys & Hobbies, I'd like to order:\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}`).join("\n")+"\nTotal: "+rp(tot));
-$("#ct").innerHTML=CART.length?`<p><b>Total: ${rp(tot)}</b></p><a class="btn p" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${msg}">Order via WhatsApp</a>`:""}
+const msg=encodeURIComponent("Hello DX Toys & Hobbies, I'd like to order:\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}${P.find(x=>x.id===i.id).from?" (mulai dari "+rp(P.find(x=>x.id===i.id).price)+")":""}`).join("\n")+"\nTotal"+(CART.some(i=>P.find(x=>x.id===i.id).from)?" (harga mulai dari)":"")+": "+rp(tot));
+$("#ct").innerHTML=CART.length?`<p><b>Total${CART.some(i=>P.find(x=>x.id===i.id).from)?" (harga mulai dari)":""}: ${rp(tot)}</b></p><a class="btn p" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${msg}">Order via WhatsApp</a>`:""}
 $("#cb").onclick=()=>cart(1);
 // ---------- VIEWS ----------
 function home(){return `<section class="hero"><div><span class="lbl">Toys · Diecast · Cards</span><h1>COLLECT WHAT YOU LOVE.</h1><p>Toys, diecast, cards &amp; collectibles — curated for collectors.</p>
