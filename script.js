@@ -19,10 +19,10 @@ function add(id,q=1){const p=P.find(x=>x.id===id),i=CART.find(x=>x.id===id);if(i
 function chg(id,d){const i=CART.find(x=>x.id===id),p=P.find(x=>x.id===id);i.q=Math.max(0,Math.min(i.q+d,MX(p)));CART=CART.filter(x=>x.q>0);save();upd()}
 function cart(o){$("#cart").classList.toggle("open",!!o);upd()}
 function upd(){$("#cc").textContent=CART.reduce((a,b)=>a+b.q,0);
-$("#cl").innerHTML=CART.length?CART.map(i=>{const p=P.find(x=>x.id===i.id);return `<div class="ci"><div>${esc(p.name)}</div><div>${p.from?`<small>Mulai dari </small>`:""}${rp(p.price*i.q)}</div><div class="q"><button onclick="chg(${p.id},-1)" aria-label="Less">−</button><span>${i.q}</span><button onclick="chg(${p.id},1)" aria-label="More">+</button></div></div>`}).join(""):`<p class="empty">Your cart is empty. Add a product to get started.</p>`;
+$("#cl").innerHTML=CART.length?CART.map(i=>{const p=P.find(x=>x.id===i.id);return `<div class="ci"><div>${esc(p.name)}</div><div>${rp(p.price*i.q)}</div><div class="q"><button onclick="chg(${p.id},-1)" aria-label="Less">−</button><span>${i.q}</span><button onclick="chg(${p.id},1)" aria-label="More">+</button></div></div>`}).join(""):`<p class="empty">Your cart is empty. Add a product to get started.</p>`;
 const tot=CART.reduce((a,i)=>a+P.find(x=>x.id===i.id).price*i.q,0);
-const msg=encodeURIComponent("Hello DX Toys & Hobbies, I'd like to order:\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}${P.find(x=>x.id===i.id).from?" (mulai dari "+rp(P.find(x=>x.id===i.id).price)+")":""}`).join("\n")+"\nTotal"+(CART.some(i=>P.find(x=>x.id===i.id).from)?" (harga mulai dari)":"")+": "+rp(tot));
-$("#ct").innerHTML=CART.length?`<p><b>Total${CART.some(i=>P.find(x=>x.id===i.id).from)?" (harga mulai dari)":""}: ${rp(tot)}</b></p><a class="btn p" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${msg}">Order via WhatsApp</a>`:""}
+const msg=encodeURIComponent("Hello DX Toys & Hobbies, I'd like to order:\n"+CART.map(i=>`- ${P.find(x=>x.id===i.id).name} x${i.q}`).join("\n")+"\nPerkiraan total harga: "+rp(tot));
+$("#ct").innerHTML=CART.length?`<p><b>Perkiraan total harga: ${rp(tot)}</b></p><a class="btn p" style="display:block;text-align:center" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${msg}">Konfirmasi via WhatsApp</a>`:""}
 $("#cb").onclick=()=>cart(1);
 // ---------- VIEWS ----------
 function home(){return `<section class="hero"><div><span class="lbl">Toys · Diecast · Cards</span><h1>COLLECT WHAT YOU LOVE.</h1><p>Toys, diecast, cards &amp; collectibles — curated for collectors.</p>
