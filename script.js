@@ -1,5 +1,5 @@
 // ---------- HELPERS ----------
-const $=s=>document.querySelector(s),rp=n=>"Rp "+n.toLocaleString("id-ID"),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=s=>document.querySelector(s),rp=n=>n%1000===0?"Rp "+(n/1000).toLocaleString("id-ID")+"K":"Rp "+n.toLocaleString("id-ID"),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const emo={Diecast:"🏎️","Trading Cards":"🃏",Accessories:"🛡️",Others:"🎲"};
 let CART=[];try{CART=JSON.parse(localStorage.getItem("dxcart")||"[]")}catch(e){}
 const save=()=>{try{localStorage.setItem("dxcart",JSON.stringify(CART))}catch(e){}};
@@ -10,7 +10,7 @@ function stock(p){if(p.stock==null)return "";return p.stock<=0?`<span class="stk
 function price(p){if(!p.price)return `<div class="pr">Price on request</div>`;const d=p.originalPrice>p.price?Math.round((1-p.price/p.originalPrice)*100):0;return `<div class="pr">${p.from?`<small class="from">Mulai dari</small>`:""}${d?`<s>${rp(p.originalPrice)}</s><span class="now">${rp(p.price)}</span><span class="d">-${d}%</span>`:rp(p.price)}</div>`}
 function img(src,fb){return `<img src="${esc(src)}" alt="" loading="lazy" onerror="this.remove()">${fb}`}
 function card(p){return `<article class="card"><a class="im" href="#/product/${p.slug}" aria-label="${esc(p.name)}"><span>${emo[p.category]||"🧸"}</span>${img(p.image,"").replace('alt=""',`alt="${esc(p.name)}"`)}<span class="bd">${badge(p)}</span></a>
-<div class="cb"><span class="meta">${[p.brand,p.category].filter(Boolean).map(esc).join(" · ")}</span><h3>${esc(p.name)}</h3>${price(p)}${stock(p)}
+<div class="cb"><span class="meta">${[p.brand,p.category].filter(Boolean).map(esc).join(" · ")}</span><h3>${esc(p.name)}</h3>${stock(p)}${price(p)}
 <div class="act">${!p.price&&!OUT(p)?`<a class="btn p s" target="_blank" rel="noopener" href="${ASK(p)}">Ask on WhatsApp</a>`:`<button class="btn p s" onclick="add(${p.id})" ${OUT(p)?"disabled":""}>Add to cart</button>`}<a class="btn s" href="#/product/${p.slug}">View</a></div></div></article>`}
 const byIds=ids=>ids.map(i=>P.find(p=>p.id===i)).filter(Boolean);
 const head=(t,s,l)=>`<div class="hh"><div><h2>${t}</h2><p>${s}</p></div>${l?`<a class="btn s" href="${l}">View all</a>`:""}</div>`;
@@ -45,7 +45,7 @@ if(/[?&]s=new/.test(location.hash))r.sort((x,y)=>NEW_IDS.includes(y.id)-NEW_IDS.
 $("#rc").textContent=r.length+" product"+(r.length===1?"":"s");$("#pg").innerHTML=r.length?r.map(card).join(""):`<p class="empty" style="grid-column:1/-1">No products match. Choose another category to see more products.</p>`}
 function prod(slug){const p=P.find(x=>x.slug===slug);if(!p)return `<p class="empty">Product not found. <a href="#/shop" style="color:var(--blue)">Back to shop</a></p>`;document.title=p.name+" — DX Toys & Hobbies";
 return `<section class="sec"><p class="meta"><a href="#/shop">Products</a> / ${esc(p.category)}</p><div class="pd"><div class="im"><span>${emo[p.category]||"🧸"}</span>${img(p.image,"").replace('alt=""',`alt="${esc(p.name)}"`)}<span class="bd">${badge(p)}</span></div>
-<div style="display:grid;gap:12px;align-content:start"><span class="meta">${esc(p.brand)}${p.sku?" · SKU "+esc(p.sku):""}</span><h2>${esc(p.name)}</h2>${price(p)}${stock(p)}<p>${esc(p.description)}</p>
+<div style="display:grid;gap:12px;align-content:start"><span class="meta">${esc(p.brand)}${p.sku?" · SKU "+esc(p.sku):""}</span><h2>${esc(p.name)}</h2>${stock(p)}${p.description?`<p>${esc(p.description)}</p>`:""}${price(p)}
 ${p.price&&!OUT(p)?`<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><div class="q"><button onclick="qty(-1,${MX(p)})" aria-label="Less">−</button><span id="qn">1</span><button onclick="qty(1,${MX(p)})" aria-label="More">+</button></div><button class="btn p" onclick="add(${p.id},+$('#qn').textContent)">Add to cart</button><button class="btn" onclick="add(${p.id},+$('#qn').textContent);cart(1)">Buy now</button></div>`:OUT(p)?`<span class="b r" style="justify-self:start">OUT OF STOCK</span><a class="btn" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${encodeURIComponent("Notify me when back in stock: "+p.name)}">Notify me on WhatsApp</a>`:`<a class="btn p" target="_blank" rel="noopener" href="${ASK(p)}">Ask on WhatsApp</a>`}
 <div class="pc"><b>Shipping</b><span class="meta">Processing time 1–2 business days via ${SHIP.join(", ")}. Estimated delivery depends on destination and courier.</span></div></div></div></section>
 <section class="sec">${head("Related products","")}<div class="grid">${P.filter(x=>x.id!==p.id).slice(0,4).map(card).join("")}</div></section>`}

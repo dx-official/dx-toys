@@ -35,7 +35,7 @@ nav.d{display:flex;gap:18px;margin-left:12px;font-weight:500}nav.d a{color:var(-
 .cb{padding:14px;display:flex;flex-direction:column;gap:5px;flex:1}.meta{color:var(--mut);font-size:.84rem}
 .pr{font-weight:700;font-size:1.15rem}.pr s{display:block;color:var(--mut);font-weight:400;font-size:.78rem}.pr .now{font-size:1.1rem}.pr .d{color:var(--red);font-size:.8rem;margin-left:6px}
 .stk{font-size:.82rem;font-weight:500}.stk.ok{color:var(--green)}.stk.lo{color:#c07a00}.stk.no{color:var(--red)}
-.act{display:flex;gap:8px;margin-top:auto;padding-top:8px}.act .btn{flex:1;text-align:center}
+.cb .pr{margin-top:auto;padding-top:6px}.act{display:flex;gap:8px;padding-top:8px}.act .btn{flex:1;text-align:center}
 .hh{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:20px;flex-wrap:wrap}.hh p{margin:4px 0 0;color:var(--mut)}
 .shop{display:grid;grid-template-columns:230px 1fr;gap:24px}
 .fl{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;align-self:start;display:grid;gap:14px}
