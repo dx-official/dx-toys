@@ -36,12 +36,13 @@ function promo(p){return `<div class="pc"><h3>${esc(p.t)}</h3><span>${esc(p.d)}<
 function pre(){return `<div class="g2">${PRE.map(r=>`<div class="card" style="flex-direction:row;flex-wrap:wrap"><div class="im" style="flex:1 1 180px;aspect-ratio:auto;min-height:200px"><span>🃏</span>${img(r.img,"")}<span class="bd"><span class="b r">PRE-ORDER</span></span></div><div class="cb" style="flex:1 1 220px"><h3>${esc(r.name)}</h3><span class="meta">Estimated release: ${esc(r.rel)}</span><div class="pr">${rp(r.price)}</div><span class="meta">Deposit: ${rp(r.dep)}</span><span class="stk ok">Status: ${esc(r.status)}</span><p class="meta">${esc(r.d)}</p><a class="btn p s" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}?text=${encodeURIComponent("Hello, I'd like to pre-order: "+r.name)}">Pre-order via WhatsApp</a></div></div>`).join("")}</div>`}
 function why(){return `${head("WHY DX TOYS & HOBBIES?","")}<div class="g4">${WHY.map(w=>`<div class="card cb"><div class="ic" style="background:${w[3]}">${w[2]}</div><h3>${w[0]}</h3><span class="meta">${w[1]}</span></div>`).join("")}</div>`}
 function shop(q){const st={c:"",...q};
-return `<section class="sec">${head("Products","Browse by category.")}<div class="shop"><div class="fl"><label>Category<select id="fc"><option value="">All</option>${SHOP_CATS.map(n=>`<option>${n}</option>`).join("")}</select></label></div>
+return `<section class="sec">${head("Products","Browse by category.")}<div class="shop"><div class="fl"><label>Category<select id="fc"><option value="">All</option>${SHOP_CATS.map(n=>`<option>${n}</option>`).join("")}</select></label><label>Urutkan<select id="fs"><option value="new">Terbaru</option><option value="lo">Termurah</option><option value="hi">Termahal</option></select></label></div>
 <div><p class="meta" id="rc"></p><div class="grid" id="pg"></div></div></div></section>`}
 let KEEP=true;
 function filt(){const c=$("#fc").value,k=KEEP&&(location.hash.match(/[?&]k=([^&]*)/)||[])[1];
 let r=P.filter(p=>c?inShopCat(p,c):!k||p.category===decodeURIComponent(k));
-if(/[?&]s=new/.test(location.hash))r.sort((x,y)=>NEW_IDS.includes(y.id)-NEW_IDS.includes(x.id));
+const sv=$("#fs").value;r.sort((x,y)=>sv==="lo"?(x.price||0)-(y.price||0):sv==="hi"?(y.price||0)-(x.price||0):y.id-x.id);
+if(sv!=="lo"&&sv!=="hi"&&/[?&]s=new/.test(location.hash))r.sort((x,y)=>NEW_IDS.includes(y.id)-NEW_IDS.includes(x.id));
 $("#rc").textContent=r.length+" product"+(r.length===1?"":"s");$("#pg").innerHTML=r.length?r.map(card).join(""):`<p class="empty" style="grid-column:1/-1">No products match. Choose another category to see more products.</p>`}
 function prod(slug){const p=P.find(x=>x.slug===slug);if(!p)return `<p class="empty">Product not found. <a href="#/shop" style="color:var(--blue)">Back to shop</a></p>`;document.title=p.name+" — DX Toys & Hobbies";
 return `<section class="sec"><p class="meta"><a href="#/shop">Products</a> / ${esc(p.category)}</p><div class="pd"><div class="im"><span>${emo[p.category]||"🧸"}</span>${img(p.image,"").replace('alt=""',`alt="${esc(p.name)}"`)}<span class="bd">${badge(p)}</span></div>
@@ -64,5 +65,5 @@ if(m[1]==="shop"){KEEP=true;v=shop(q);t="Products — DX Toys & Hobbies"}else if
 else if(m[1]==="about"){v=about();t="About — DX Toys & Hobbies"}else if(m[1]==="contact"){v=contact();t="Contact — DX Toys & Hobbies"}else v=home();
 document.title=t;$("#app").innerHTML=v;window.scrollTo(0,0);
 $("#nav").innerHTML=NAV.map(n=>`<a href="${n[1]}" class="${h===n[1]?"on":""}">${n[0]}</a>`).join("");
-if(m[1]==="shop"){KEEP=true;$("#fc").addEventListener("change",()=>{KEEP=false;filt()});filt()}}
+if(m[1]==="shop"){KEEP=true;$("#fc").addEventListener("change",()=>{KEEP=false;filt()});$("#fs").addEventListener("change",filt);filt()}}
 addEventListener("hashchange",route);route();upd();
