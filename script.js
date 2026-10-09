@@ -54,15 +54,15 @@ const qty=(d,m)=>{const e=$("#qn");e.textContent=Math.max(1,Math.min(m,+e.textCo
 function about(){return `<section class="sec">${why()}</section><section class="sec">${head("FAQ","")}${FAQ.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join("")}</section>
 <section class="sec g2"><div><h2>Shipping</h2><div class="chips" style="margin:14px 0">${SHIP.map(s=>`<span class="chip">${s}</span>`).join("")}</div><p class="meta">Processing time: 1–2 business days. Estimated delivery time depends on destination and courier.</p></div>
 <div><h2>Payment</h2><div class="chips" style="margin:14px 0">${PAY.map(s=>`<span class="chip">${s}</span>`).join("")}</div></div></section>`}
-function contact(){return `<section class="sec">${head("GET IN TOUCH","")}<div class="g3"><div class="pc"><h3>WhatsApp</h3><span>${BRAND.waShow}</span><a class="btn p s" style="justify-self:start" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}">Chat on WhatsApp</a></div>
+function contact(){return about()+`<section class="sec">${head("GET IN TOUCH","")}<div class="g3"><div class="pc"><h3>WhatsApp</h3><span>${BRAND.waShow}</span><a class="btn p s" style="justify-self:start" target="_blank" rel="noopener" href="https://wa.me/${BRAND.wa}">Chat on WhatsApp</a></div>
 <div class="pc"><h3>Instagram</h3><span>${BRAND.ig}</span><a class="btn s" style="justify-self:start" target="_blank" rel="noopener" href="https://instagram.com/dx_vault">Follow Instagram</a></div>
 <div class="pc"><h3>Email &amp; hours</h3><span>${BRAND.email}</span><span class="meta">${BRAND.hours}</span></div></div></section>`}
 // ---------- ROUTER ----------
-const NAV=[["Home","#/"],["Products","#/shop"],["New Arrivals","#/shop?s=new"],["Pre-Order","#/preorder"],["About","#/about"],["Contact","#/contact"]];
+const NAV=[["Home","#/"],["Products","#/shop"],["New Arrivals","#/shop?s=new"],["Pre-Order","#/preorder"],["Contact","#/contact"]];
 function route(){const h=location.hash||"#/",[path,qs]=h.split("?"),q={};(qs||"").split("&").forEach(x=>{const[k,v]=x.split("=");if(k)q[k]=decodeURIComponent(v||"")});
 const m=path.split("/");let v="",t="DX Toys & Hobbies — Toys, Diecast, Trading Cards & Collectibles";
 if(m[1]==="shop"){KEEP=true;v=shop(q);t="Products — DX Toys & Hobbies"}else if(m[1]==="product")v=prod(m[2]);else if(m[1]==="preorder"){v=`<section class="sec">${head("PRE-ORDER","Secure your upcoming releases before they arrive.")}${pre()}<p class="meta" style="margin-top:14px">Estimated release dates may change according to the official distributor schedule.</p></section><section class="sec">${head("Promotions","")}<div class="g2">${PROMO.map(promo).join("")}</div></section>`;t="Pre-Order — DX Toys & Hobbies"}
-else if(m[1]==="about"){v=about();t="About — DX Toys & Hobbies"}else if(m[1]==="contact"){v=contact();t="Contact — DX Toys & Hobbies"}else v=home();
+else if(m[1]==="contact"||m[1]==="about"){v=contact();t="Contact — DX Toys & Hobbies"}else v=home();
 document.title=t;$("#app").innerHTML=v;window.scrollTo(0,0);
 $("#nav").innerHTML=NAV.map(n=>`<a href="${n[1]}" class="${h===n[1]?"on":""}">${n[0]}</a>`).join("");
 if(m[1]==="shop"){KEEP=true;$("#fc").addEventListener("change",()=>{KEEP=false;filt()});$("#fs").addEventListener("change",filt);filt()}}
