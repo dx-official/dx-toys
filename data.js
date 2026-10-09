@@ -6,7 +6,7 @@ const COLS=[{n:"Diecast",slug:"diecast",d:"Hot Wheels, Mini GT, Pop Race, and mo
 {n:"Accessories",slug:"accessories",d:"Display cases, sleeves, protectors, and hobby accessories.",img:"/assets/collections/accessories.jpg",c:"#c98f00",e:"🛡️"}];
 const P=[
 {id:1,name:"Booster Box Pokémon",category:"Trading Cards",brand:"Pokémon",price:1200000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/pokemon-booster-box.jpg",slug:"pokemon-booster-box",tags:[]},
-{id:2,name:"Booster Pack Pokémon",category:"Trading Cards",brand:"Pokémon",price:70000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/pokemon-booster-pack.jpg",slug:"pokemon-booster-pack",tags:[]},
+{id:2,name:"Booster Pack Pokémon",category:"Trading Cards",brand:"Pokémon",price:35000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/pokemon-booster-pack.jpg",slug:"pokemon-booster-pack",tags:[]},
 {id:3,name:"Single Card Pokémon",category:"Trading Cards",brand:"Pokémon",price:10000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/pokemon-single-card.jpg",slug:"pokemon-single-card",tags:[]},
 {id:4,name:"Bulk Card Pokémon",category:"Trading Cards",brand:"Pokémon",price:10000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/pokemon-bulk-card.jpg",slug:"pokemon-bulk-card",tags:[]},
 {id:5,name:"Hot Wheels Basic",category:"Diecast",brand:"Hot Wheels",price:15000,from:true,originalPrice:null,stock:null,status:"",badge:"",sku:"",description:"",image:"/assets/products/hot-wheels-basic.jpg",slug:"hot-wheels-basic",tags:[]},
