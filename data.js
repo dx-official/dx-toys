@@ -1,5 +1,5 @@
 // ---------- DATA (edit here; swap for real inventory later) ----------
-const BRAND={wa:"6281228505388",waShow:"+62 81228505388",ig:"@dx_vault",email:"hello@dxtoysandhobbies.com",hours:"Monday–Saturday, 09:00–18:00 WIB"};
+const BRAND={wa:"6281228505388",waShow:"+62 81228505388",ig:"@dx_vault",hours:"Senin-Minggu, 07.00 - 20.00 WIB"};
 const COLS=[{n:"Diecast",slug:"diecast",d:"Hot Wheels, Mini GT, Pop Race, and more.",img:"/assets/collections/diecast.jpg",c:"#e63a2e",e:"🏎️"},
 {n:"Trading Cards",slug:"trading-cards",d:"Pokémon, One Piece, and other collectible card products.",img:"/assets/collections/tcg.jpg",c:"#2457d6",e:"🃏"},
 {n:"Toys & Collectibles",slug:"toys-collectibles",d:"Figures, toys, and collectible items.",img:"/assets/collections/toys.jpg",c:"#22a06b",e:"🧸"},
@@ -32,7 +32,7 @@ const PRE=[{name:"Pokémon Booster Box — Upcoming Set",rel:"December 2026",pri
 const PROMO=[{t:"FREE SHIPPING WEEKEND",d:"Free shipping for selected orders.",p:"10–12 October 2026",c:"DXWEEKEND"},{t:"COLLECTOR DEAL",d:"Save more when purchasing selected bundles.",p:"",c:""}];
 const WHY=[["Curated Products","We carefully select products worth adding to your collection.","✓","var(--red)"],["Collector Focused","Built for collectors, enthusiasts, and hobby communities.","★","var(--blue)"],["Safe Packaging","Every order is packed with care to help products arrive safely.","▣","var(--green)"],["Reliable Service","Fast response and transparent order information.","☎","#c98f00"]];
 const FAQ=[["Are all products authentic?","Yes. We source products from trusted distributors and suppliers."],["Do you accept pre-orders?","Yes. Selected upcoming products are available for pre-order."],["Can I request specific products?","Yes. Contact us through WhatsApp or Instagram."],["How are orders packaged?","Products are packed according to their category and protection requirements."]];
-const SHIP=["J&T Express","SiCepat","Anteraja"],PAY=["Bank Transfer","QRIS","E-Wallet","Marketplace Payment"];
+const SHIP=["J&T Express","Gosend Instan"],PAY=["QRIS","Bank Transfer","E-Wallet","Cash","Marketplace"];
 // Shop filter options. Products are matched by brand (or category for Accessories); "Others" = everything not matched.
 const SHOP_CATS=["Hot Wheels","Mini GT","Pop Race","Pokémon","One Piece","Accessories","Others"];
 const CATMATCH={"Hot Wheels":p=>p.brand.toLowerCase()==="hot wheels","Mini GT":p=>p.brand.toLowerCase()==="mini gt","Pop Race":p=>p.brand.toLowerCase()==="pop race","Pokémon":p=>p.brand.toLowerCase()==="pokémon","One Piece":p=>p.brand.toLowerCase()==="one piece","Accessories":p=>p.category==="Accessories"};
